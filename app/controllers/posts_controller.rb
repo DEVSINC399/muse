@@ -1,17 +1,18 @@
 class PostsController < ApplicationController
     before_action :find_post, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!, except: [:index, :show]
     def index
         @posts = Post.all.order("created_at desc")
     end
 
     def new
-        @post = Post.new
+        @post = current_user.posts.build
     end
 
     def create
-        @post = Post.new(post_params)
+        @post = current_user.posts.build(post_params)
         if @post.save
-            redirect_to @post, notice: "Record saved successfully."
+            redirect_to @post, notify: "Record saved successfully."
         else
             render 'new'
         end
@@ -22,7 +23,7 @@ class PostsController < ApplicationController
 
     def update
         if @post.update(post_params)
-            redirect_to @post, notice: "Record updated successfully."
+            redirect_to @post, notify: "Record updated successfully."
         else
             render 'edit'
         end
@@ -33,7 +34,7 @@ class PostsController < ApplicationController
 
     def destroy
         @post.destroy
-        redirect_to root_path
+        redirect_to root_path, notify: "Record saved successfully."
     end
 
     private
