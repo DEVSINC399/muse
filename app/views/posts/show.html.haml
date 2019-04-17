@@ -1,6 +1,8 @@
+= image_tag @post.image.url(:medium)
 %h2= @post.title
 %p= @post.link
 %p= @post.description
+%p= @post.user.name
 = link_to "Edit", edit_post_path(@post)
 = link_to "Delete", @post, method: :delete, data: { confirm: "Are you sure to delete?" }
 = link_to "Home", root_path
