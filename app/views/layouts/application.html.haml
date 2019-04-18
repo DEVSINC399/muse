@@ -19,6 +19,7 @@
           - else
             = link_to "Sign In", new_user_session_path, class: "button"
             = link_to "Sign Up", new_user_registration_path, class: "button"
-    - flash.each do |msg|
-      = content_tag(:div, msg, class: 'alert alert-success')
-    = yield
+    %p.notice= notice
+    %p.alert= alert
+    .wrapper
+      = yield
