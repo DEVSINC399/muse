@@ -1,0 +1,24 @@
+!!! 5
+%html
+  %head
+    %title Muse
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  
+  %body
+    %header
+      .wrapper.clearfix
+        #logo= link_to "Muse", root_path
+        %nav
+          - if user_signed_in?
+            = link_to current_user.name, edit_user_registration_path
+            = link_to "Add new Inspiration", new_post_path
+          - else
+            = link_to "Sign In", new_user_session_path, class: "button"
+            = link_to "Sign Up", new_user_registration_path, class: "button"
+    - flash.each do |msg|
+      = content_tag(:div, msg, class: 'alert alert-success')
+    = yield
