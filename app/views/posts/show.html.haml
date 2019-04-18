@@ -23,6 +23,11 @@
             - if @post.user == current_user
                 = link_to "Edit", edit_post_path(@post), class: "data"
                 = link_to "Delete", @post, method: :delete, data: { confirm: "Are you sure to delete?" }, class: "data"
+        #random_post
+            %h3 Random Inspiration
+            .post
+                .post_image
+                    
 #comments
     %h2.comment_count=pluralize(@post.comments.count, "Comment")
     = render @post.comments
